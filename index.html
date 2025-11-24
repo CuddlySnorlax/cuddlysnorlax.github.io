@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple Calculator</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Long Nguyen's Simple Calculator Project</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body class="light">
   <header class="app-header">
@@ -24,23 +24,20 @@
   </header>
 
   <main class="container">
-<section class="calculator" aria-label="Calculator">
+    <section class="calculator" aria-label="Calculator">
       <div id="display" class="display" role="textbox" aria-live="polite" aria-atomic="true">0</div>
 
       <div class="keys">
-        <!-- Memory Row -->
-        <button class="btn mem" data-action="mc" title="Memory Clear">MC</button>
-        <button class="btn mem" data-action="mr" title="Memory Recall">MR</button>
-        <button class="btn mem" data-action="mplus" title="Memory Add">M+</button>
-        <button class="btn mem" data-action="mminus" title="Memory Subtract">M−</button>
+        <button class="btn mem" data-action="mc">MC</button>
+        <button class="btn mem" data-action="mr">MR</button>
+        <button class="btn mem" data-action="mplus">M+</button>
+        <button class="btn mem" data-action="mminus">M−</button>
 
-        <!-- Control Row -->
         <button class="btn util" data-action="clear">C</button>
         <button class="btn util" data-action="backspace">⌫</button>
         <button class="btn op" data-value="%">%</button>
         <button class="btn op" data-value="÷">÷</button>
 
-        <!-- Digits/ops -->
         <button class="btn" data-value="7">7</button>
         <button class="btn" data-value="8">8</button>
         <button class="btn" data-value="9">9</button>
@@ -85,6 +82,35 @@
     <small>Tip: Use your keyboard: digits/operators, Enter (=), Backspace (⌫), and C to clear.</small>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Your main JS file (optional but recommended). The inline script below ensures
+       Dark + Scientific toggles work even if this file is missing or cached. -->
+  <script src="script.js?v=4" defer></script>
+
+  <!-- Minimal inline script to wire the toggles; safe even if script.js fails -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    const sciToggle   = document.getElementById('scientific-toggle');
+    const sciKeys     = document.getElementById('sci-keys');
+
+    function setTheme() {
+      document.body.classList.toggle('dark',  !!themeToggle?.checked);
+      document.body.classList.toggle('light', !themeToggle?.checked);
+    }
+    function setSci() {
+      if (sciKeys) sciKeys.hidden = !sciToggle?.checked;
+    }
+
+    themeToggle?.addEventListener('change', setTheme);
+    sciToggle?.addEventListener('change', setSci);
+
+    // Initialize on load
+    themeToggle && (themeToggle.checked = false);
+    sciToggle && (sciToggle.checked = false);
+    setTheme();
+    setSci();
+  });
+  </script>
 </body>
 </html>
+
